@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Brooklyn CDL Inc. | NY CDL Training School</title>
+  <meta name="description" content="Brooklyn CDL Inc. offers professional Commercial Driver's License training in New York — Class A and Class B courses, road test prep, and DMV guidance.">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700&family=Raleway:ital,wght@0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Main CSS File (Eterna template) -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/site.css" rel="stylesheet">
+
+  <!-- Apply saved theme/background prefs before first paint to avoid flashing -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('bcdl-theme');
+        if (!theme) {
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
+
+  <style>
+    .hero-video-section {
+      background: var(--background-color);
+    }
+
+    .hero-video-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .bcdl {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      background: var(--background-color);
+      --l: 20.34%;  --t: 47.53%;  --w: 74.42%;  --h: 42.45%;
+      max-width: 649px;
+      aspect-ratio: 649 / 768;
+    }
+
+    .bcdl[data-mode="wide"] {
+      --l: 26.25%;  --t: 20.00%;  --w: 60.38%;  --h: 72.44%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .bcdl video, .bcdl .bcdl-end {
+      position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover;
+    }
+
+    .bcdl .bcdl-end { opacity: 0; }
+    .bcdl.fallback .bcdl-end { opacity: 1; }
+
+    .bcdl-board {
+      position: absolute;
+      left: var(--l); top: var(--t); width: var(--w); height: var(--h);
+      box-sizing: border-box;
+      container-type: inline-size;
+      color: #1d2233;
+      opacity: 0; transition: opacity .5s ease;
+      overflow: hidden;
+    }
+
+    .bcdl.done .bcdl-board { opacity: 1; }
+    .bcdl-board h2 { margin: 0 0 2cqw; font-size: 7cqw; line-height: 1.15; }
+    .bcdl-board p  { margin: 0 0 1.5cqw; font-size: 4.2cqw; line-height: 1.35; }
+    .bcdl-board ul { margin: 0; padding: 0; list-style: none; }
+    .bcdl-board li { display: flex; justify-content: space-between; gap: 3cqw; padding: .8cqw 0; font-size: 4.6cqw; }
+
+    .bcdl-board-content { transition: opacity .4s ease; }
+    .bcdl-board-content.is-swapping { opacity: 0; }
+  </style>
+</head>
+
+<body>
+
+  <header id="header" class="header light-background">
+    <div class="container header-row">
+      <a href="index.html" class="logo">
+        <img src="assets/img/Logo.png" alt="Brooklyn CDL Logo">
+        <h1 class="sitename mb-0">Brooklyn CDL Inc.</h1>
+      </a>
+
+      <div class="header-right">
+        <nav class="navmenu" id="navmenu">
+          <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="contact-info">
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:info@brooklyncdl.com">info@brooklyncdl.com</a></i>
+          <i class="bi bi-telephone d-flex align-items-center"><a href="tel:646-250-5429">646-250-5429</a></i>
+        </div>
+
+        <div class="pref-toggles">
+          <button type="button" id="themeToggle" class="pref-btn" title="Toggle light/dark theme" aria-label="Toggle light/dark theme">
+            <i class="bi bi-moon-stars"></i>
+          </button>
+          <button type="button" id="navToggle" class="pref-btn mobile-nav-toggle" title="Menu" aria-label="Menu">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section class="hero-video-section" data-aos="fade-up">
+      <div class="hero-video-wrap">
+        <div class="bcdl" id="bcdl" data-mode="phone">
+          <img class="bcdl-end" id="bcdlEnd" alt="">
+          <video id="bcdlVideo" muted playsinline preload="auto"></video>
+          <div class="bcdl-board" id="bcdlBoard">
+            <div class="bcdl-board-content" id="bcdlBoardContent">
+              <h2>CDL Packages</h2>
+              <ul>
+                <li><span>Class A Course</span><b>Call for pricing</b></li>
+                <li><span>Class B Course</span><b>Call for pricing</b></li>
+                <li><span>Road Test Prep</span><b>Call for pricing</b></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-copy text-center mx-auto" data-aos="fade-up" style="max-width: 640px;">
+          <h1>NY CDL Education Starts Here</h1>
+          <p>Brooklyn CDL Inc. trains new and experienced drivers for commercial licenses</p>
+          <div class="hero-actions justify-content-center">
+            <a href="contact.html" class="btn-brand"><i class="bi bi-calendar-check"></i> Get Started</a>
+            <a href="services.html" class="btn-outline"><i class="bi bi-arrow-right"></i> Services</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="highlights">
+      <div class="container">
+        <div class="section-heading text-center mx-auto" data-aos="fade-up" style="max-width: 640px;">
+          <span class="eyebrow">Why Brooklyn CDL</span>
+          <h2>Training Built Around Getting You Licensed</h2>
+          <p class="mx-auto">Everything you need to pass your CDL road test, from your first lesson to DMV paperwork.</p>
+        </div>
+
+        <div class="row gy-3">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-card">
+              <div class="service-icon"><i class="bi bi-mortarboard"></i></div>
+              <h3>Certified Instructors</h3>
+              <p>Experienced, licensed instructors guide you through classroom and behind-the-wheel training.</p>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-card">
+              <div class="service-icon"><i class="bi bi-truck"></i></div>
+              <h3>Class A &amp; Class B</h3>
+              <p>Courses tailored for tractor-trailer and straight-truck licensing, matched to your career goals.</p>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-card">
+              <div class="service-icon"><i class="bi bi-clipboard2-check"></i></div>
+              <h3>Road Test &amp; DMV Support</h3>
+              <p>We walk you through scheduling, fees, and requirements so test day goes smoothly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta" style="padding-top: 0;">
+      <div class="container">
+        <div class="option-card d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3" data-aos="fade-up">
+          <div>
+            <h2 class="mb-1">Ready to get your CDL?</h2>
+            <p class="lead-text mb-0">Contact us today to schedule your first lesson or ask about our courses.</p>
+          </div>
+          <a href="contact.html" class="btn-brand flex-shrink-0"><i class="bi bi-telephone"></i> Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="row gy-4">
+        <div class="col-6 col-md-4 footer-col">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html"><i class="bi bi-chevron-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="bi bi-chevron-right"></i> About Us</a></li>
+            <li><a href="services.html"><i class="bi bi-chevron-right"></i> Services</a></li>
+            <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md-4 footer-col">
+          <h4>Contact Us</h4>
+          <div class="footer-contact-row">
+            <i class="bi bi-envelope"></i>
+            <a href="mailto:info@brooklyncdl.com">info@brooklyncdl.com</a>
+          </div>
+          <div class="footer-contact-row">
+            <i class="bi bi-telephone"></i>
+            <a href="tel:646-250-5429">646-250-5429</a>
+          </div>
+        </div>
+
+        <div class="col-md-4 footer-col">
+          <h4>About Us</h4>
+          <p>Brooklyn CDL Inc. trains new and experienced drivers for Class A and Class B commercial licenses, from classroom instruction to road test prep.</p>
+          <div class="footer-social">
+            <a href="mailto:info@brooklyncdl.com" aria-label="Email"><i class="bi bi-envelope"></i></a>
+            <a href="tel:646-250-5429" aria-label="Call"><i class="bi bi-telephone"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      &copy; <span id="footerYear"></span> Brooklyn CDL Inc. All Rights Reserved.
+    </div>
+  </footer>
+
+  <script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/site.js"></script>
+
+  <script>
+    (function () {
+      var box = document.getElementById('bcdl'),
+          vid = document.getElementById('bcdlVideo'),
+          img = document.getElementById('bcdlEnd');
+
+      var FILES = {
+        phone: { video: 'assets/video/brooklyn_cdl_intro_phone.mp4', end: 'assets/img/brooklyn_cdl_end_phone.png' },
+        wide:  { video: 'assets/video/brooklyn_cdl_intro_wide.mp4',  end: 'assets/img/brooklyn_cdl_end_wide.png'  }
+      };
+
+      function pickMode() {
+        return (window.innerWidth > window.innerHeight) ? 'wide' : 'phone';
+      }
+      function showInfo()  { box.classList.add('done'); }
+      function fallback()  { box.classList.add('fallback'); showInfo(); }
+
+      var mode = null, finished = false;
+      function load(m, jumpToEnd) {
+        mode = m;
+        box.setAttribute('data-mode', m);
+        box.classList.remove('done', 'fallback');
+        img.src = FILES[m].end;
+        vid.poster = FILES[m].end;
+        vid.src = FILES[m].video;
+        vid.load();
+        if (jumpToEnd) {
+          vid.addEventListener('loadedmetadata', function once() {
+            vid.removeEventListener('loadedmetadata', once);
+            vid.currentTime = Math.max(0, vid.duration - 0.05);
+            showInfo();
+          });
+        } else {
+          var p = vid.play();
+          if (p && p.catch) p.catch(fallback);
+        }
+      }
+
+      vid.addEventListener('ended', function () { finished = true; showInfo(); });
+      vid.addEventListener('error', fallback);
+
+      load(pickMode(), false);
+
+      var t;
+      window.addEventListener('resize', function () {
+        clearTimeout(t);
+        t = setTimeout(function () {
+          var m = pickMode();
+          if (m !== mode) load(m, finished);
+        }, 250);
+      });
+
+      // Whiteboard content rotation — swaps every 10s once the board is visible
+      var boardContent = document.getElementById('bcdlBoardContent');
+      var SLIDES = [
+        '<h2>CDL Packages</h2>' +
+          '<ul>' +
+            '<li><span>Class A Course</span><b>Call for pricing</b></li>' +
+            '<li><span>Class B Course</span><b>Call for pricing</b></li>' +
+            '<li><span>Road Test Prep</span><b>Call for pricing</b></li>' +
+          '</ul>',
+        '<h2>Why Brooklyn CDL</h2>' +
+          '<ul>' +
+            '<li><span>Certified Instructors</span></li>' +
+            '<li><span>Flexible Scheduling</span></li>' +
+            '<li><span>DMV Paperwork Support</span></li>' +
+          '</ul>',
+        '<h2>Get Started Today</h2>' +
+          '<ul>' +
+            '<li><span>Call</span><b>646-250-5429</b></li>' +
+            '<li><span>Email</span><b>info@brooklyncdl.com</b></li>' +
+          '</ul>'
+      ];
+      var slideIndex = 0;
+      var ROTATE_MS = 10000;
+
+      function rotateBoard() {
+        slideIndex = (slideIndex + 1) % SLIDES.length;
+        boardContent.classList.add('is-swapping');
+        setTimeout(function () {
+          boardContent.innerHTML = SLIDES[slideIndex];
+          boardContent.classList.remove('is-swapping');
+        }, 400);
+      }
+
+      setInterval(rotateBoard, ROTATE_MS);
+    })();
+  </script>
+
+</body>
+
+</html>
