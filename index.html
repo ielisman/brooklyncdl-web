@@ -50,9 +50,15 @@
       margin: 0 auto;
       overflow: hidden;
       background: var(--background-color);
+      border-radius: 10px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .25);
       --l: 20.34%;  --t: 47.53%;  --w: 74.42%;  --h: 42.45%;
       max-width: 649px;
       aspect-ratio: 649 / 768;
+    }
+
+    html[data-theme="dark"] .bcdl {
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 16px 40px -12px rgba(0, 0, 0, .6);
     }
 
     .bcdl[data-mode="wide"] {
@@ -84,8 +90,245 @@
     .bcdl-board ul { margin: 0; padding: 0; list-style: none; }
     .bcdl-board li { display: flex; justify-content: space-between; gap: 3cqw; padding: .8cqw 0; font-size: 4.6cqw; }
 
-    .bcdl-board-content { transition: opacity .4s ease; }
-    .bcdl-board-content.is-swapping { opacity: 0; }
+    .bcdl-board-content {
+      height: 100%;
+      transition: opacity .7s cubic-bezier(.4, 0, .2, 1), filter .7s cubic-bezier(.4, 0, .2, 1), transform .7s cubic-bezier(.4, 0, .2, 1);
+      filter: blur(0);
+      transform: scale(1);
+    }
+    .bcdl-board-content.is-swapping {
+      opacity: 0;
+      filter: blur(6px);
+      transform: scale(.97);
+    }
+
+    /* Pricing card — blends into the whiteboard's own grey, top-aligned like the other slides, slightly inset from the board edges */
+    .bcdl-card {
+      display: flex;
+      flex-direction: column;
+      height: 96%;
+      width: 97%;
+      margin: 0 auto;
+      border-radius: 1.2cqw;
+      overflow: hidden;
+      border: .28cqw solid rgba(0, 0, 0, .45);
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    .bcdl-card-header {
+      flex-shrink: 0;
+      color: var(--heading-color);
+      padding: 1.4cqw 3cqw;
+      font-weight: 700;
+      font-size: 5.6cqw;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      text-align: center;
+      border-bottom: .28cqw solid rgba(0, 0, 0, .45);
+    }
+
+    .bcdl-card-body {
+      flex: 1;
+      min-height: 0;
+      padding: 1.6cqw 3.4cqw;
+      display: flex;
+      gap: 3.4cqw;
+      overflow: hidden;
+    }
+
+    .bcdl-price-col { flex: 1; min-width: 0; }
+    .bcdl-price-col h3 {
+      margin: 0 0 1cqw;
+      font-size: 4.8cqw;
+      font-weight: 700;
+      color: var(--heading-color);
+      border-bottom: .28cqw solid rgba(0, 0, 0, .45);
+      padding-bottom: .7cqw;
+    }
+    .bcdl-price-col ul { margin: 0; padding: 0; list-style: none; }
+    .bcdl-price-col li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.6cqw;
+      padding: .45cqw 0;
+      font-size: 3.4cqw;
+      line-height: 1.2;
+    }
+    .bcdl-price-col li b { flex-shrink: 0; color: #1d2233; font-weight: 700; }
+    .bcdl-price-col li span { color: #454a52; }
+
+    /* "How-Tos" guide list — modern single-line links with arrow bullets */
+    .guide-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .guide-list li {
+      border-bottom: .1cqw solid rgba(0, 0, 0, .12);
+    }
+    .guide-list li:last-child {
+      border-bottom: none;
+    }
+    .guide-list li a {
+      display: flex;
+      align-items: center;
+      gap: 1.4cqw;
+      padding: .6cqw .4cqw;
+      color: #333740;
+      font-size: 3cqw;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-decoration: none;
+      border-radius: .6cqw;
+      transition: color .2s ease, background-color .2s ease, padding-left .2s ease;
+    }
+    .guide-list li a::before {
+      content: "\f285"; /* bootstrap-icons chevron-right */
+      font-family: "bootstrap-icons", sans-serif;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.6cqw;
+      height: 3.6cqw;
+      min-width: 16px;
+      min-height: 16px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .08);
+      color: var(--accent-color);
+      font-size: 1.9cqw;
+      transition: background-color .2s ease, color .2s ease, transform .2s ease;
+    }
+    .guide-list li a:hover {
+      color: var(--accent-color);
+      background: rgba(0, 0, 0, .05);
+      padding-left: 1.2cqw;
+    }
+    .guide-list li a:hover::before {
+      background: var(--accent-color);
+      color: #fff;
+      transform: translateX(.4cqw);
+    }
+
+    /* "Sponsored and Zero-Cost Training" — statement list with checkmark bullets + CTA line */
+    .feature-title {
+      font-size: 5cqw !important;
+      white-space: nowrap;
+    }
+    .feature-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4cqw;
+    }
+    .feature-list li {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 2cqw;
+      color: #333740;
+      font-size: 3.4cqw;
+      line-height: 1.3;
+    }
+    .feature-list li i {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 7.5cqw;
+      height: 7.5cqw;
+      min-width: 30px;
+      min-height: 30px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--accent-color), transparent 82%);
+      color: var(--accent-color);
+      font-size: 3.4cqw;
+    }
+    /* "How We Teach and Why Us?" — bold label + short description per benefit */
+    .benefit-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1cqw;
+    }
+    .benefit-list li {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1.5cqw;
+    }
+    .benefit-list li i {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 5.6cqw;
+      height: 5.6cqw;
+      min-width: 22px;
+      min-height: 22px;
+      border-radius: .8cqw;
+      background: color-mix(in srgb, var(--accent-color), transparent 82%);
+      color: var(--accent-color);
+      font-size: 2.6cqw;
+    }
+    .benefit-list li div {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: .05em;
+    }
+    .benefit-list li strong {
+      color: var(--heading-color);
+      font-size: 2.9cqw;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .benefit-list li span {
+      color: #454a52;
+      font-size: 2.5cqw;
+      line-height: 1.2;
+    }
+
+    /* Prev/next slide arrows */
+    .bcdl-nav {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 .5cqw;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .bcdl.done .bcdl-board:hover .bcdl-nav,
+    .bcdl-nav.is-touch-visible {
+      opacity: 1;
+    }
+    .bcdl-nav-btn {
+      pointer-events: auto;
+      width: 7cqw;
+      height: 7cqw;
+      min-width: 22px;
+      min-height: 22px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, .35);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.4cqw;
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .bcdl-nav-btn:hover { background: rgba(0, 0, 0, .55); transform: scale(1.08); }
   </style>
 </head>
 
@@ -133,13 +376,10 @@
           <img class="bcdl-end" id="bcdlEnd" alt="">
           <video id="bcdlVideo" muted playsinline preload="auto"></video>
           <div class="bcdl-board" id="bcdlBoard">
-            <div class="bcdl-board-content" id="bcdlBoardContent">
-              <h2>CDL Packages</h2>
-              <ul>
-                <li><span>Class A Course</span><b>Call for pricing</b></li>
-                <li><span>Class B Course</span><b>Call for pricing</b></li>
-                <li><span>Road Test Prep</span><b>Call for pricing</b></li>
-              </ul>
+            <div class="bcdl-board-content" id="bcdlBoardContent"></div>
+            <div class="bcdl-nav">
+              <button type="button" class="bcdl-nav-btn" id="bcdlPrev" aria-label="Previous slide"><i class="bi bi-chevron-left"></i></button>
+              <button type="button" class="bcdl-nav-btn" id="bcdlNext" aria-label="Next slide"><i class="bi bi-chevron-right"></i></button>
             </div>
           </div>
         </div>
@@ -269,12 +509,18 @@
       function pickMode() {
         return (window.innerWidth > window.innerHeight) ? 'wide' : 'phone';
       }
-      function showInfo()  { box.classList.add('done'); }
+      var onBoardShown = null; // set once the whiteboard slideshow below is initialized
+      function showInfo()  {
+        box.classList.add('done');
+        if (onBoardShown) onBoardShown();
+      }
       function fallback()  { box.classList.add('fallback'); showInfo(); }
 
-      var mode = null, finished = false;
+      var mode = null, finished = false, loadToken = 0;
       function load(m, jumpToEnd) {
+        if (m === mode) return; // avoid pointless reload/freeze when orientation doesn't actually change the mode
         mode = m;
+        var myToken = ++loadToken;
         box.setAttribute('data-mode', m);
         box.classList.remove('done', 'fallback');
         img.src = FILES[m].end;
@@ -282,10 +528,15 @@
         vid.src = FILES[m].video;
         vid.load();
         if (jumpToEnd) {
-          vid.addEventListener('loadedmetadata', function once() {
-            vid.removeEventListener('loadedmetadata', once);
+          vid.addEventListener('loadedmetadata', function onMeta() {
+            vid.removeEventListener('loadedmetadata', onMeta);
+            if (myToken !== loadToken) return; // a newer load() superseded this one
+            vid.addEventListener('seeked', function onSeeked() {
+              vid.removeEventListener('seeked', onSeeked);
+              if (myToken !== loadToken) return;
+              showInfo();
+            });
             vid.currentTime = Math.max(0, vid.duration - 0.05);
-            showInfo();
           });
         } else {
           var p = vid.play();
@@ -299,48 +550,122 @@
       load(pickMode(), false);
 
       var t;
-      window.addEventListener('resize', function () {
+      function handleViewportChange() {
         clearTimeout(t);
         t = setTimeout(function () {
           var m = pickMode();
           if (m !== mode) load(m, finished);
         }, 250);
+      }
+      window.addEventListener('resize', handleViewportChange);
+      window.addEventListener('orientationchange', function () {
+        // orientation-change fires before the browser reports final innerWidth/innerHeight on some
+        // mobile browsers, so re-check shortly after rather than trusting the immediate values
+        clearTimeout(t);
+        t = setTimeout(function () {
+          var m = pickMode();
+          if (m !== mode) load(m, finished);
+        }, 400);
       });
 
-      // Whiteboard content rotation — swaps every 10s once the board is visible
+      // Whiteboard slides — swap every 10s, or navigate manually with the arrows
       var boardContent = document.getElementById('bcdlBoardContent');
+      var prevBtn = document.getElementById('bcdlPrev');
+      var nextBtn = document.getElementById('bcdlNext');
+      var navWrap = document.querySelector('.bcdl-nav');
+
       var SLIDES = [
-        '<h2>CDL Packages</h2>' +
-          '<ul>' +
-            '<li><span>Class A Course</span><b>Call for pricing</b></li>' +
-            '<li><span>Class B Course</span><b>Call for pricing</b></li>' +
-            '<li><span>Road Test Prep</span><b>Call for pricing</b></li>' +
+        '<div class="bcdl-card">' +
+          '<div class="bcdl-card-header">CDL Class A Prices</div>' +
+          '<div class="bcdl-card-body">' +
+            '<div class="bcdl-price-col">' +
+              '<h3>Automatic Truck</h3>' +
+              '<ul>' +
+                '<li><span>1 hour lesson</span><b>$110</b></li>' +
+                '<li><span>ELDT</span><b>$250</b></li>' +
+                '<li><span>Road Test</span><b>$450</b></li>' +
+                '<li><span>DMV Skills Fee</span><b>$40</b></li>' +
+                '<li><span>10 hrs, 1 Road Test, ELDT</span><b>$1,600</b></li>' +
+                '<li><span>16 hrs, 2 Road Tests, ELDT</span><b>$2,500</b></li>' +
+              '</ul>' +
+            '</div>' +
+            '<div class="bcdl-price-col">' +
+              '<h3>Manual Truck</h3>' +
+              '<ul>' +
+                '<li><span>1 hour lesson</span><b>$130</b></li>' +
+                '<li><span>ELDT</span><b>$250</b></li>' +
+                '<li><span>Road Test</span><b>$500</b></li>' +
+                '<li><span>DMV Skills Fee</span><b>$40</b></li>' +
+                '<li><span>14 hrs, 1 Road Test, ELDT</span><b>$2,320</b></li>' +
+                '<li><span>20 hrs, 2 Road Tests, ELDT</span><b>$3,380</b></li>' +
+              '</ul>' +
+            '</div>' +
+          '</div>' +
+        '</div>',
+        '<h2>How-Tos</h2>' +
+          '<ul class="guide-list">' +
+            '<li><a href="services.html">How to Get a CDL: The Complete Step-by-Step Process</a></li>' +
+            '<li><a href="services.html">How to Choose Between CDL Class A, Class B, and Class C</a></li>' +
+            '<li><a href="services.html">How to Get a CDL Commercial Learner\'s Permit (CLP)</a></li>' +
+            '<li><a href="services.html">How to Pass ELDT: What It Is, Why You Need it, How It Works</a></li>' +
+            '<li><a href="services.html">How to Prepare for and Pass the CDL Road Test</a></li>' +
+            '<li><a href="services.html">How to Pay DMV Road Test Scheduling Fee, i.e. Skills Fee</a></li>' +
+            '<li><a href="services.html">How to Obtain a Hazmat Endorsement</a></li>' +
           '</ul>',
-        '<h2>Why Brooklyn CDL</h2>' +
-          '<ul>' +
-            '<li><span>Certified Instructors</span></li>' +
-            '<li><span>Flexible Scheduling</span></li>' +
-            '<li><span>DMV Paperwork Support</span></li>' +
+        '<h2 class="feature-title">Sponsored and Zero-Cost Training</h2>' +
+          '<ul class="feature-list">' +
+            '<li><i class="bi bi-mortarboard-fill"></i> Qualify for grant-funded CDL training</li>' +
+            '<li><i class="bi bi-people-fill"></i> We collaborate with non-profit and workforce partners</li>' +
+            '<li><i class="bi bi-cash-coin"></i> Full tuition covered for eligible drivers</li>' +
+            '<li><i class="bi bi-telephone-fill"></i> Call or text us today to confirm your qualification</li>' +
           '</ul>',
-        '<h2>Get Started Today</h2>' +
-          '<ul>' +
-            '<li><span>Call</span><b>646-250-5429</b></li>' +
-            '<li><span>Email</span><b>info@brooklyncdl.com</b></li>' +
+        '<h2 class="feature-title">How We Teach and Why Us?</h2>' +
+          '<ul class="benefit-list">' +
+            '<li><i class="bi bi-calendar2-week-fill"></i><div><strong>Flexible 7-Day Scheduling</strong><span>Morning, evening, and weekend slots built around your work schedule.</span></div></li>' +
+            '<li><i class="bi bi-google"></i><div><strong>Top-Rated on Google</strong><span>Consistently recommended by real students for quality instruction and high pass rates.</span></div></li>' +
+            '<li><i class="bi bi-trophy-fill"></i><div><strong>High First-Time Pass Rates</strong><span>Proprietary study guides, dedicated range drills, and mock road tests.</span></div></li>' +
+            '<li><i class="bi bi-person-check-fill"></i><div><strong>Patient, 1-on-1 Instruction</strong><span>Stress-free behind-the-wheel coaching tailored to your pace.</span></div></li>' +
+            '<li><i class="bi bi-truck-front-fill"></i><div><strong>Test in Your Training Vehicle</strong><span>Practice and test in the exact same vehicle (manual or automatic).</span></div></li>' +
           '</ul>'
       ];
       var slideIndex = 0;
       var ROTATE_MS = 10000;
+      var autoTimer = null;
 
-      function rotateBoard() {
-        slideIndex = (slideIndex + 1) % SLIDES.length;
-        boardContent.classList.add('is-swapping');
-        setTimeout(function () {
-          boardContent.innerHTML = SLIDES[slideIndex];
-          boardContent.classList.remove('is-swapping');
-        }, 400);
+      function renderSlide() {
+        boardContent.innerHTML = SLIDES[slideIndex];
       }
 
-      setInterval(rotateBoard, ROTATE_MS);
+      function goToSlide(i) {
+        slideIndex = (i + SLIDES.length) % SLIDES.length;
+        boardContent.classList.add('is-swapping');
+        setTimeout(function () {
+          renderSlide();
+          boardContent.classList.remove('is-swapping');
+        }, 700);
+      }
+
+      function restartAutoRotate() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(function () { goToSlide(slideIndex + 1); }, ROTATE_MS);
+      }
+
+      prevBtn.addEventListener('click', function () { goToSlide(slideIndex - 1); restartAutoRotate(); });
+      nextBtn.addEventListener('click', function () { goToSlide(slideIndex + 1); restartAutoRotate(); });
+
+      // Touch devices have no :hover — tapping the board toggles the arrows visible
+      box.addEventListener('click', function (e) {
+        if (e.target.closest('.bcdl-nav-btn')) return;
+        navWrap.classList.toggle('is-touch-visible');
+      });
+
+      renderSlide();
+      if (box.classList.contains('done')) {
+        // video already finished (e.g. fallback fired before this ran)
+        restartAutoRotate();
+      } else {
+        onBoardShown = restartAutoRotate;
+      }
     })();
   </script>
 

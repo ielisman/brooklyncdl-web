@@ -9,10 +9,10 @@
 
 /* Dark theme overrides — mirrors Eterna's own --default/--heading/--surface tokens */
 html[data-theme="dark"] {
-  --background-color: #14181f;
-  --default-color: #c9d0dc;
-  --heading-color: #eef1f6;
-  --surface-color: #1c212b;
+  --background-color: #1c1c1f;
+  --default-color: #c7c7ca;
+  --heading-color: #f2f2f3;
+  --surface-color: #232327;
   --contrast-color: #ffffff;
   --accent-color: #9a9da3;
   --accent-dark: #c3c5ca;
@@ -23,38 +23,40 @@ html[data-theme="dark"] body {
 }
 
 html[data-theme="dark"] .header.light-background {
-  --background-color: #191e27;
-  border-bottom: 1px solid #262d3a;
+  --background-color: #232327;
+  border-bottom: 1px solid #313136;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .04), 0 8px 20px -12px rgba(0, 0, 0, .5);
 }
 
 html[data-theme="dark"] .option-card,
 html[data-theme="dark"] .info-card,
 html[data-theme="dark"] .service-card {
-  border-color: #2a3241;
+  border-color: #35353a;
 }
 
 html[data-theme="dark"] .step-list > li {
-  border-bottom-color: #2a3241;
+  border-bottom-color: #35353a;
 }
 
 html[data-theme="dark"] .diagram-section object,
 html[data-theme="dark"] .media-frame img,
 html[data-theme="dark"] .media-frame video {
-  border-color: #2a3241;
+  border-color: #35353a;
 }
 
 html[data-theme="dark"] .page-title {
   background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 78%), transparent);
-  border-bottom: 1px solid #262d3a;
+  border-bottom: 1px solid #313136;
 }
 
 html[data-theme="dark"] .page-title h1 {
   color: var(--heading-color);
 }
 
-html[data-theme="dark"] .hero {
+html[data-theme="dark"] .hero,
+html[data-theme="dark"] .hero-video-section {
   background: var(--background-color);
-  border-bottom: 1px solid #262d3a;
+  border-bottom: 1px solid #313136;
 }
 
 a { color: var(--accent-color); }
@@ -642,13 +644,13 @@ html[data-theme="dark"] .header {
 
 /* Footer */
 .site-footer {
-  background: #202226;
-  color: #b7bac1;
+  background: #222224;
+  color: #b9b9bc;
   margin-top: 32px;
 }
 
 .site-footer a {
-  color: #b7bac1;
+  color: #b9b9bc;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -831,10 +833,19 @@ html[data-theme="dark"] .header {
   }
 
   .header .navmenu ul {
+    display: flex;
+    position: static;
+    inset: auto;
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
     padding: 8px 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
   }
 
   .header .navmenu ul li {
