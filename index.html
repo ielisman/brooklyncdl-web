@@ -35,6 +35,13 @@
   </script>
 
   <style>
+    /* Registering these as animatable lets .bcdl-board morph smoothly between its native
+       video-whiteboard position and the enlarged mobile panel, instead of snapping instantly. */
+    @property --l { syntax: '<percentage>'; inherits: true; initial-value: 0%; }
+    @property --t { syntax: '<percentage>'; inherits: true; initial-value: 0%; }
+    @property --w { syntax: '<percentage>'; inherits: true; initial-value: 0%; }
+    @property --h { syntax: '<percentage>'; inherits: true; initial-value: 0%; }
+
     .hero-video-section {
       background: var(--background-color);
     }
@@ -67,6 +74,111 @@
       aspect-ratio: 16 / 9;
     }
 
+    /* On narrow phones the whiteboard crop is too small for its text to stay readable at
+       real device widths, so once the video ends we enlarge the board region — full width,
+       but keeping its original vertical position/height so the bridge stays visible above
+       it — in exchange for legible text. Since this enlarged region extends past the actual
+       whiteboard prop drawn in the video, every slide gets its own solid backing panel here
+       (not just the pricing card) so text always has a readable background regardless of
+       what's behind it in the frame. */
+    @media (max-width: 480px) {
+      /* Two-stage reveal, timed from JS (see MORPH_HOLD_MS):
+         Stage 1 ("done" only) — the card snaps in at the exact position/size of the real
+         whiteboard in the video (same --l/--t/--w/--h the video uses while playing), trimmed
+         on the left so the woman stays visible beside it — no transition, so it reads as the
+         frozen video frame being instantly replaced by a white card sitting on the same spot,
+         not a new element fading in over it.
+         Stage 2 ("settled", added ~1s later) — the card zooms out from that board-sized rect
+         to the full-width enlarged panel used for actually reading the slides. */
+      .bcdl[data-mode="phone"].done {
+        --l: 20.34%;  --t: 47.53%;  --w: 74.42%;  --h: 42.45%;
+      }
+
+      .bcdl[data-mode="phone"].settled {
+        --l: 0%;  --t: 34%;  --w: 100%;  --h: 66%;
+      }
+
+      /* The woman + room dissolve away only once the card starts zooming out, so stage 1
+         still reads as "the board on the video," not an already-dissolved backdrop. */
+      .bcdl[data-mode="phone"].settled video {
+        transition: opacity 1.8s ease;
+        opacity: .16;
+      }
+
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled video {
+        opacity: .1;
+      }
+
+      /* The backing panel lives on .bcdl-board (shown once, on video-end) rather than
+         .bcdl-board-content (which fades on every slide swap) — otherwise the woman and real
+         whiteboard would flash back into view during each later slide transition. */
+      .bcdl[data-mode="phone"] .bcdl-board {
+        background: rgb(199, 197, 199);
+        border-radius: 0 10px 0 0;
+      }
+
+      .bcdl[data-mode="phone"].settled .bcdl-board {
+        background: color-mix(in srgb, var(--background-color), transparent 8%);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        border-radius: 14px 14px 0 0;
+        transition: background-color 1.8s ease, border-radius 1.8s ease, backdrop-filter 1.8s ease,
+                    left 1.8s cubic-bezier(.45, 0, .2, 1), top 1.8s cubic-bezier(.45, 0, .2, 1),
+                    width 1.8s cubic-bezier(.45, 0, .2, 1), height 1.8s cubic-bezier(.45, 0, .2, 1);
+      }
+
+      /* No transform-scale here — the content is sized purely in cqw off its container, so as
+         the board itself grows (the only thing animating in stage 2), text/layout scale up
+         smoothly and in lockstep with it automatically; adding a separate transform/scale on
+         top of that is what caused the "zig-zag" drift during zoom-out. */
+      .bcdl[data-mode="phone"] .bcdl-board-content {
+        padding: 20px 18px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      /* Starts hidden so that once .done is added, it fades IN (not already-visible content
+         snapping to hidden-then-back, which is what happens if the hidden state is only
+         declared on the .done rule itself). */
+      .bcdl[data-mode="phone"]:not(.done) .bcdl-board-content {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      /* Stage 1: card content fades/lifts in gently onto the board once .done is added. */
+      .bcdl[data-mode="phone"].done:not(.settled) .bcdl-board-content {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity .6s ease .15s, transform .6s ease .15s;
+      }
+
+      .bcdl[data-mode="phone"] .bcdl-card {
+        height: 100%;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+      }
+
+      /* Stage 1's board background is always the whiteboard grey (even in dark theme, since
+         it's matching the video), so text there stays dark. Only once "settled" does the
+         panel flip to the dark page color, needing a light-on-dark text swap to match. */
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled .bcdl-board {
+        color: var(--default-color);
+      }
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled .bcdl-price-col li b,
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled .guide-list li a,
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled .feature-list li {
+        color: var(--default-color);
+      }
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled .bcdl-price-col li span,
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled .benefit-list li span {
+        color: color-mix(in srgb, var(--default-color), transparent 25%);
+      }
+      html[data-theme="dark"] .bcdl[data-mode="phone"].settled .guide-list li a::before {
+        background: rgba(255, 255, 255, .12);
+      }
+    }
+
     .bcdl video, .bcdl .bcdl-end {
       position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover;
     }
@@ -85,7 +197,7 @@
     }
 
     .bcdl.done .bcdl-board { opacity: 1; }
-    .bcdl-board h2 { margin: 0 0 2cqw; font-size: 7cqw; line-height: 1.15; }
+    .bcdl-board h2 { margin: 0 0 2cqw; font-size: 7cqw; line-height: 1.15; text-align: center; }
     .bcdl-board p  { margin: 0 0 1.5cqw; font-size: 4.2cqw; line-height: 1.35; }
     .bcdl-board ul { margin: 0; padding: 0; list-style: none; }
     .bcdl-board li { display: flex; justify-content: space-between; gap: 3cqw; padding: .8cqw 0; font-size: 4.6cqw; }
@@ -93,8 +205,6 @@
     .bcdl-board-content {
       height: 100%;
       transition: opacity .7s cubic-bezier(.4, 0, .2, 1), filter .7s cubic-bezier(.4, 0, .2, 1), transform .7s cubic-bezier(.4, 0, .2, 1);
-      filter: blur(0);
-      transform: scale(1);
     }
     .bcdl-board-content.is-swapping {
       opacity: 0;
@@ -172,10 +282,10 @@
     .guide-list li a {
       display: flex;
       align-items: center;
-      gap: 1.4cqw;
-      padding: .6cqw .4cqw;
+      gap: 1.6cqw;
+      padding: .4cqw .4cqw;
       color: #333740;
-      font-size: 3cqw;
+      font-size: 2.9cqw;
       line-height: 1.2;
       white-space: nowrap;
       overflow: hidden;
@@ -185,20 +295,21 @@
       transition: color .2s ease, background-color .2s ease, padding-left .2s ease;
     }
     .guide-list li a::before {
-      content: "\f285"; /* bootstrap-icons chevron-right */
+      content: "\f468"; /* bootstrap-icons lightbulb-fill — matches the round icon style used in
+                            the Sponsored and How We Teach cards */
       font-family: "bootstrap-icons", sans-serif;
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 3.6cqw;
-      height: 3.6cqw;
-      min-width: 16px;
-      min-height: 16px;
+      width: 6cqw;
+      height: 6cqw;
+      min-width: 24px;
+      min-height: 24px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, .08);
+      background: color-mix(in srgb, var(--accent-color), transparent 82%);
       color: var(--accent-color);
-      font-size: 1.9cqw;
+      font-size: 2.8cqw;
       transition: background-color .2s ease, color .2s ease, transform .2s ease;
     }
     .guide-list li a:hover {
@@ -255,44 +366,44 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 1cqw;
+      gap: 1.4cqw;
     }
     .benefit-list li {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      gap: 1.5cqw;
+      gap: 2cqw;
     }
     .benefit-list li i {
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 5.6cqw;
-      height: 5.6cqw;
-      min-width: 22px;
-      min-height: 22px;
-      border-radius: .8cqw;
+      width: 7.5cqw;
+      height: 7.5cqw;
+      min-width: 30px;
+      min-height: 30px;
+      border-radius: 50%;
       background: color-mix(in srgb, var(--accent-color), transparent 82%);
       color: var(--accent-color);
-      font-size: 2.6cqw;
+      font-size: 3.4cqw;
     }
     .benefit-list li div {
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: .05em;
+      gap: .1em;
     }
     .benefit-list li strong {
       color: var(--heading-color);
-      font-size: 2.9cqw;
+      font-size: 3.4cqw;
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.2;
     }
     .benefit-list li span {
       color: #454a52;
-      font-size: 2.5cqw;
-      line-height: 1.2;
+      font-size: 3cqw;
+      line-height: 1.25;
     }
 
     /* Prev/next slide arrows */
@@ -510,9 +621,15 @@
         return (window.innerWidth > window.innerHeight) ? 'wide' : 'phone';
       }
       var onBoardShown = null; // set once the whiteboard slideshow below is initialized
+      var HOLD_MS = 1000, settledTimer = null;
       function showInfo()  {
         box.classList.add('done');
-        if (onBoardShown) onBoardShown();
+        clearTimeout(settledTimer);
+        // card sits at the whiteboard's exact size/position for a beat before zooming out
+        settledTimer = setTimeout(function () {
+          box.classList.add('settled');
+          if (onBoardShown) onBoardShown();
+        }, HOLD_MS);
       }
       function fallback()  { box.classList.add('fallback'); showInfo(); }
 
@@ -522,7 +639,8 @@
         mode = m;
         var myToken = ++loadToken;
         box.setAttribute('data-mode', m);
-        box.classList.remove('done', 'fallback');
+        clearTimeout(settledTimer);
+        box.classList.remove('done', 'fallback', 'settled');
         img.src = FILES[m].end;
         vid.poster = FILES[m].end;
         vid.src = FILES[m].video;
@@ -607,29 +725,27 @@
             '<li><a href="services.html">How to Get a CDL: The Complete Step-by-Step Process</a></li>' +
             '<li><a href="services.html">How to Choose Between CDL Class A, Class B, and Class C</a></li>' +
             '<li><a href="services.html">How to Get a CDL Commercial Learner\'s Permit (CLP)</a></li>' +
-            '<li><a href="services.html">How to Pass ELDT: What It Is, Why You Need it, How It Works</a></li>' +
-            '<li><a href="services.html">How to Prepare for and Pass the CDL Road Test</a></li>' +
-            '<li><a href="services.html">How to Pay DMV Road Test Scheduling Fee, i.e. Skills Fee</a></li>' +
+            '<li><a href="services.html">How to Get ELDT: What Is It and Why You Need it</a></li>' +
+            '<li><a href="services.html">How to Pay DMV Road Test Scheduling Fee</a></li>' +
             '<li><a href="services.html">How to Obtain a Hazmat Endorsement</a></li>' +
           '</ul>',
         '<h2 class="feature-title">Sponsored and Zero-Cost Training</h2>' +
           '<ul class="feature-list">' +
             '<li><i class="bi bi-mortarboard-fill"></i> Qualify for grant-funded CDL training</li>' +
-            '<li><i class="bi bi-people-fill"></i> We collaborate with non-profit and workforce partners</li>' +
+            '<li><i class="bi bi-people-fill"></i> We work with non-profit and workforce partners</li>' +
             '<li><i class="bi bi-cash-coin"></i> Full tuition covered for eligible drivers</li>' +
             '<li><i class="bi bi-telephone-fill"></i> Call or text us today to confirm your qualification</li>' +
           '</ul>',
         '<h2 class="feature-title">How We Teach and Why Us?</h2>' +
           '<ul class="benefit-list">' +
             '<li><i class="bi bi-calendar2-week-fill"></i><div><strong>Flexible 7-Day Scheduling</strong><span>Morning, evening, and weekend slots built around your work schedule.</span></div></li>' +
-            '<li><i class="bi bi-google"></i><div><strong>Top-Rated on Google</strong><span>Consistently recommended by real students for quality instruction and high pass rates.</span></div></li>' +
+            '<li><i class="bi bi-google"></i><div><strong>Top-Rated on Google</strong><span>Recommended by real students for quality instruction and high pass rates.</span></div></li>' +
             '<li><i class="bi bi-trophy-fill"></i><div><strong>High First-Time Pass Rates</strong><span>Proprietary study guides, dedicated range drills, and mock road tests.</span></div></li>' +
-            '<li><i class="bi bi-person-check-fill"></i><div><strong>Patient, 1-on-1 Instruction</strong><span>Stress-free behind-the-wheel coaching tailored to your pace.</span></div></li>' +
-            '<li><i class="bi bi-truck-front-fill"></i><div><strong>Test in Your Training Vehicle</strong><span>Practice and test in the exact same vehicle (manual or automatic).</span></div></li>' +
+            '<li><i class="bi bi-truck-front-fill"></i><div><strong>Test in Your Training Vehicle</strong><span>Practice 1-on-1 with top instructors and test in the exact same vehicle (manual or automatic).</span></div></li>' +
           '</ul>'
       ];
       var slideIndex = 0;
-      var ROTATE_MS = 10000;
+      var ROTATE_MS = 15000;
       var autoTimer = null;
 
       function renderSlide() {
@@ -660,8 +776,8 @@
       });
 
       renderSlide();
-      if (box.classList.contains('done')) {
-        // video already finished (e.g. fallback fired before this ran)
+      if (box.classList.contains('settled')) {
+        // video already finished and settled (e.g. fallback fired before this ran)
         restartAutoRotate();
       } else {
         onBoardShown = restartAutoRotate;
