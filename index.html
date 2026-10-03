@@ -4,8 +4,34 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Brooklyn CDL Inc. | NY CDL Training School</title>
-  <meta name="description" content="Brooklyn CDL Inc. offers professional Commercial Driver's License training in New York — Class A and Class B courses, road test prep, and DMV guidance.">
+  <title>Top CDL Driving Program in Brooklyn, NY | Brooklyn CDL Inc.</title>
+  <meta name="description" content="Brooklyn CDL Inc. is a top CDL driving program offering Class A and Class B commercial driver's license training, ELDT, and road test prep for Red Hook, Mill Basin, Flatbush, Bensonhurst, Brighton Beach, Sheepshead Bay, Gravesend, Queens, the Bronx, Staten Island, Manhattan, and Long Island.">
+  <link rel="canonical" href="https://www.brooklyncdl.com/index.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://www.brooklyncdl.com/#business",
+    "name": "Brooklyn CDL Inc.",
+    "description": "Top CDL driving program in Brooklyn, NY offering Class A commercial driver's license training, ELDT, and road test preparation.",
+    "url": "https://www.brooklyncdl.com/",
+    "telephone": "+1-646-250-5429",
+    "email": "info@brooklyncdl.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Brooklyn",
+      "addressRegion": "NY",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      "Brooklyn", "Red Hook", "Mill Basin", "Flatbush", "Bensonhurst", 
+      "Brighton Beach", "Sheepshead Bay", "Gravesend", "Queens", "Bronx", "Staten Island",
+      "Manhattan", "Long Island"
+    ],
+    "priceRange": "$$"
+  }
+  </script>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -227,6 +253,7 @@
 
     .bcdl-card-header {
       flex-shrink: 0;
+      display: block;
       color: var(--heading-color);
       padding: 1.4cqw 3cqw;
       font-weight: 700;
@@ -234,7 +261,12 @@
       letter-spacing: .03em;
       text-transform: uppercase;
       text-align: center;
+      text-decoration: none;
       border-bottom: .28cqw solid rgba(0, 0, 0, .45);
+      transition: color .2s ease;
+    }
+    a.bcdl-card-header:hover {
+      color: var(--accent-color);
     }
 
     .bcdl-card-body {
@@ -359,6 +391,18 @@
       color: var(--accent-color);
       font-size: 3.4cqw;
     }
+    /* When a feature-list/benefit-list item's whole line is a link (CTA rows), display:contents
+       lets its icon + text behave as direct flex children of the <li>, same as plain items */
+    .feature-list li a,
+    .benefit-list li a {
+      display: contents;
+      color: inherit;
+      text-decoration: none;
+    }
+    .feature-list li:has(a):hover,
+    .benefit-list li:has(a):hover {
+      text-decoration: underline;
+    }
     /* "How We Teach and Why Us?" — bold label + short description per benefit */
     .benefit-list {
       margin: 0;
@@ -456,9 +500,10 @@
         <nav class="navmenu" id="navmenu">
           <ul>
             <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="prices.html">Prices</a></li>
+            <li><a href="how-to.html">How-To</a></li>
             <li><a href="services.html">Services</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
           </ul>
         </nav>
 
@@ -478,6 +523,15 @@
       </div>
     </div>
   </header>
+
+  <div class="quick-nav" id="quickNav">
+    <div class="container quick-nav-row">
+      <a href="prices.html">Prices</a>
+      <a href="how-to.html">How-To</a>
+      <a href="services.html#sponsored-training">Free Tuition</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
 
   <main class="main">
 
@@ -501,7 +555,7 @@
       <div class="container">
         <div class="hero-copy text-center mx-auto" data-aos="fade-up" style="max-width: 640px;">
           <h1>NY CDL Education Starts Here</h1>
-          <p>Brooklyn CDL Inc. trains new and experienced drivers for commercial licenses</p>
+          <p>Brooklyn CDL Inc. trains new and experienced drivers for commercial licenses — Brooklyn's top CDL driving program serving Red Hook, Flatbush, Bensonhurst, Brighton Beach, Queens, the Bronx, Staten Island, Manhattan, and Long Island.</p>
           <div class="hero-actions justify-content-center">
             <a href="contact.html" class="btn-brand"><i class="bi bi-calendar-check"></i> Get Started</a>
             <a href="services.html" class="btn-outline"><i class="bi bi-arrow-right"></i> Services</a>
@@ -529,8 +583,8 @@
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
             <div class="service-card">
               <div class="service-icon"><i class="bi bi-truck"></i></div>
-              <h3>Class A &amp; Class B</h3>
-              <p>Courses tailored for tractor-trailer and straight-truck licensing, matched to your career goals.</p>
+              <h3>Class A</h3>
+              <p>Courses tailored for tractor-trailer matched to your career goals.</p>
             </div>
           </div>
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
@@ -538,6 +592,67 @@
               <div class="service-icon"><i class="bi bi-clipboard2-check"></i></div>
               <h3>Road Test &amp; DMV Support</h3>
               <p>We walk you through scheduling, fees, and requirements so test day goes smoothly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="service-area" style="padding-top: 0;">
+      <div class="container">
+        <div class="option-card" data-aos="fade-up">
+          <h2>Serving Brooklyn and the Greater NYC Area</h2>
+          <p class="lead-text">As a top CDL driving program in Brooklyn, we partnered with top driving schools to train drivers throughout Red Hook, Mill Basin, Flatbush, Bensonhurst, Brighton Beach, Sheepshead Bay, and Gravesend, plus students commuting in from Queens, the Bronx, Staten Island, Manhattan, and Long Island. Wherever you're starting from, we make it easy to get to class and get on the road.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="home-faq" style="padding-top: 0;">
+      <div class="container">
+        <div class="section-heading text-center mx-auto" data-aos="fade-up" style="max-width: 640px;">
+          <span class="eyebrow">Quick Answers</span>
+          <h2>CDL Training in Brooklyn — Frequently Asked Questions</h2>
+        </div>
+
+        <div class="row gy-3">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="pricing-card qa-card">
+              <div class="pricing-card-head">
+                <h3>How much does CDL training cost?</h3>
+              </div>
+              <div class="pricing-card-body">
+                <ol>
+                  <li>Packages range from $1,600 to $3,380 depending on hours and transmission.</li>
+                  <li>See full pricing on our <a href="prices.html">Prices</a> page.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="pricing-card qa-card">
+              <div class="pricing-card-head">
+                <h3>How do I get a CDL in New York?</h3>
+              </div>
+              <div class="pricing-card-body">
+                <ol>
+                  <li>Get your Commercial Learner Permit (CLP).</li>
+                  <li>Complete ELDT and behind-the-wheel lessons.</li>
+                  <li>Pass your DMV road test. See the full <a href="how-to.html">How-To guide</a>.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="pricing-card qa-card">
+              <div class="pricing-card-head">
+                <h3>Is free CDL training available?</h3>
+              </div>
+              <div class="pricing-card-body">
+                <ol>
+                  <li>Yes — grant-funded training may cover full or partial tuition.</li>
+                  <li>Check eligibility on our <a href="services.html#sponsored-training">Free Training</a> page.</li>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
@@ -565,8 +680,10 @@
           <h4>Useful Links</h4>
           <ul>
             <li><a href="index.html"><i class="bi bi-chevron-right"></i> Home</a></li>
-            <li><a href="about.html"><i class="bi bi-chevron-right"></i> About Us</a></li>
+            <li><a href="prices.html"><i class="bi bi-chevron-right"></i> Prices</a></li>
+            <li><a href="how-to.html"><i class="bi bi-chevron-right"></i> How-To</a></li>
             <li><a href="services.html"><i class="bi bi-chevron-right"></i> Services</a></li>
+            <li><a href="about.html"><i class="bi bi-chevron-right"></i> About Us</a></li>
             <li><a href="contact.html"><i class="bi bi-chevron-right"></i> Contact</a></li>
           </ul>
         </div>
@@ -694,7 +811,7 @@
 
       var SLIDES = [
         '<div class="bcdl-card">' +
-          '<div class="bcdl-card-header">CDL Class A Prices</div>' +
+          '<a class="bcdl-card-header" href="prices.html">CDL Class A Prices</a>' +
           '<div class="bcdl-card-body">' +
             '<div class="bcdl-price-col">' +
               '<h3>Automatic Truck</h3>' +
@@ -722,26 +839,26 @@
         '</div>',
         '<h2>HOW-TO</h2>' +
           '<ul class="guide-list">' +
-            '<li><a href="services.html">Get a CDL: The Complete Step-by-Step Process</a></li>' +
-            '<li><a href="services.html">Choose Between CDL Class A, B, and C</a></li>' +
-            '<li><a href="services.html">Get a Commercial Learner\'s Permit (CLP)</a></li>' +
-            '<li><a href="services.html">Get ELDT: What Is It and Why You Need it</a></li>' +
-            '<li><a href="services.html">Pay DMV Road Test Scheduling Fee</a></li>' +
-            '<li><a href="services.html">Obtain a Hazmat Endorsement</a></li>' +
+            '<li><a href="how-to.html">Get a CDL: The Complete Step-by-Step Process</a></li>' +
+            '<li><a href="how-to.html">Choose Between CDL Class A, B, and C</a></li>' +
+            '<li><a href="how-to.html">Get a Commercial Learner\'s Permit (CLP)</a></li>' +
+            '<li><a href="how-to.html">Get ELDT: What Is It and Why You Need it</a></li>' +
+            '<li><a href="how-to.html">Pay DMV Road Test Scheduling Fee</a></li>' +
+            '<li><a href="how-to.html">Obtain a Hazmat Endorsement</a></li>' +
           '</ul>',
         '<h2 class="feature-title">Sponsored and Zero-Cost Training</h2>' +
           '<ul class="feature-list">' +
             '<li><i class="bi bi-mortarboard-fill"></i> Qualify for grant-funded CDL training</li>' +
             '<li><i class="bi bi-people-fill"></i> We work with non-profit and workforce partners</li>' +
             '<li><i class="bi bi-cash-coin"></i> Full tuition covered for eligible drivers</li>' +
-            '<li><i class="bi bi-telephone-fill"></i> Call or text us today to confirm your qualification</li>' +
+            '<li><a href="services.html#sponsored-training"><i class="bi bi-telephone-fill"></i> Call or see if you qualify</a></li>' +
           '</ul>',
         '<h2 class="feature-title">How We Teach and Why Us?</h2>' +
           '<ul class="benefit-list">' +
             '<li><i class="bi bi-calendar2-week-fill"></i><div><strong>Flexible 7-Day Scheduling</strong><span>Morning, evening, and weekend slots built around your work schedule.</span></div></li>' +
             '<li><i class="bi bi-google"></i><div><strong>Top-Rated on Google</strong><span>Recommended by real students for quality instruction and high pass rates.</span></div></li>' +
             '<li><i class="bi bi-trophy-fill"></i><div><strong>High First-Time Pass Rates</strong><span>Proprietary study guides, dedicated range drills, and mock road tests.</span></div></li>' +
-            '<li><i class="bi bi-truck-front-fill"></i><div><strong>Test in Your Training Vehicle</strong><span>Practice 1-on-1 with top instructors and test in the exact same vehicle (manual or automatic).</span></div></li>' +
+            '<li><a href="about.html"><i class="bi bi-truck-front-fill"></i> Learn more about us</a></li>' +
           '</ul>'
       ];
       var slideIndex = 0;
