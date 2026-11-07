@@ -1297,3 +1297,7 @@ html[data-theme="dark"] .header {
     font-size: 22px;
   }
 }
+
+.footer-legal { margin-top: 6px; }
+.footer-legal a { color: inherit; text-decoration: underline; }
+.footer-legal a:hover { opacity: .8; }
